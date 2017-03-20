@@ -15,13 +15,14 @@ public partial class WebUserControl : System.Web.UI.UserControl
     protected void Page_Load(object sender, EventArgs e)
     {
         
+            
+       
         if(!IsPostBack)
         {
-            GenerateChkValue();
+            //GenerateChkValue();
             dt = new DataTable();
             dt = NewDataTable();
             Session["table"] = dt;
-            
             generalScore();
             GroupID = DateTime.Now.ToString("yyyyMMddHHmmss");               
         } 
@@ -31,9 +32,7 @@ public partial class WebUserControl : System.Web.UI.UserControl
     {
         DataTable _newdt = new DataTable();
         _newdt.Columns.AddRange(new DataColumn[] {
-            new DataColumn ("GroupID"),
-            new DataColumn ("Topic"),
-            new DataColumn ("ClassTime"),
+            new DataColumn ("TopicID"),     
             new DataColumn ("A_1"),
             new DataColumn ("A_2"),
             new DataColumn ("A_3"),
@@ -57,18 +56,18 @@ public partial class WebUserControl : System.Web.UI.UserControl
     }
     protected void BindGrid()
     {
-        
+
         string conStr = ConfigurationManager.ConnectionStrings["WifiDataConnectionString"].ConnectionString;
         using (SqlConnection conn = new SqlConnection(conStr))
         {
             string commandStr = "SELECT * FROM Content";
-            using(SqlDataAdapter adapter = new SqlDataAdapter(commandStr,conn))
+            using (SqlDataAdapter adapter = new SqlDataAdapter(commandStr, conn))
             {
                 adapter.Fill(dt);
                 GridView1.DataSource = dt;
                 GridView1.DataBind();
             }
-            
+
         }
     }
     void generalScore()
@@ -89,11 +88,13 @@ public partial class WebUserControl : System.Web.UI.UserControl
 
     protected void btn_Add_Click(object sender, EventArgs e)
     {
-        
+        DataTable dt = ((DataTable)Session["table"]);
+
+        #region Add data to tablerow
         DataRow row = dt.NewRow();
         row["GroupID"] = GroupID;
-        row["Topic"] = txtTopic.Text;
-        row["ClassTime"] = string.Format(datepicker.Text, "yyyy-MM-dd HH:mm");
+        //row["Topic"] = txtTopic.Text;
+        //row["ClassTime"] = string.Format(datepicker.Text, "yyyy-MM-dd HH:mm");
         row["A_1"] = ddl_A1.SelectedValue;
         row["A_2"] = ddl_A2.SelectedValue;
         row["A_3"] = ddl_A3.SelectedValue;
@@ -112,35 +113,44 @@ public partial class WebUserControl : System.Web.UI.UserControl
         row["C_3"] = ddl_C3.SelectedValue;
 
         string chkStr = "";
-        foreach(Control ctrl in chk_Panel.Controls)
+        foreach (Control ctrl in chk_Panel.Controls)
         {
-            if(ctrl is CheckBox)
+            if (ctrl is CheckBox)
             {
-                if(((CheckBox)ctrl).Checked == true)
+                if (((CheckBox)ctrl).Checked == true)
                 {
                     chkStr += ((CheckBox)ctrl).InputAttributes["value"] + ",";
 
+                    switch (((CheckBox)ctrl).InputAttributes["value"])
+                    {
+                        case "8":
+                            row["D1_Else"] = txt_Else.Text;
+                            break;
+                        case "9":
+                            row["PosterLocation"] = txtPosLocation.Text;
+                            break;
+                    }
                 }
-                
             }
         }
-
-
-
+        row["D_1_TypeID"] = chkStr.Substring(0, chkStr.Length - 1);
+        #endregion 
+        dt.Rows.Add(row);
+        Session["table"] = dt;
 
     }
 
     protected void ddl_All_SelectedIndexChanged(object sender, EventArgs e)
     {
-        
+
         foreach (Control ctrl in this.Controls)
         {
-            if(ctrl is DropDownList)
+            if (ctrl is DropDownList)
             {
                 ((DropDownList)ctrl).SelectedIndex = ddl_All.SelectedIndex;
-                
+
             }
-            
+
         }
     }
 

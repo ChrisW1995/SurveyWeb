@@ -1,15 +1,15 @@
 ﻿body {
-    padding:0;
-    margin:0;
     background-color:#eeeeee;
+    
 }
 #container{
     position:relative;
     background-color:white;
-    padding:0;
     margin:0 auto;
-    width:850px;
-    bottom:10px;
+    width:850px;    
+    height:auto;
+    text-align:left;
+    bottom:15px;
 }
 #header{ 
     position:relative;   
@@ -32,18 +32,8 @@ header{
     padding-top:20px;
 }
 
-.css_table{
-    padding-left:12%;
-    padding-bottom:38px;
-    width:680px;
-    position:inherit;
-    display:table;
-    top:0px;
-    left:50%;
-    bottom:50px;
-    margin-left:-340px;
-    font-family:"Microsoft JhengHei";
-}
+
+
 .css_tr {
       display: table-row;
       
@@ -71,7 +61,8 @@ header{
 }
 
 #div_footer{
-    height:80px;
+
+    height:70px;
     background-color:black;
     width:850px;
 }
@@ -83,4 +74,37 @@ header > img {
     width:350px;
     top:28.5%;
     left:4.1%;
+}
+form{
+    
+    display:block;
+    margin:0 auto;
+}
+.css_table{
+    padding-bottom:38px;
+    width:550px;
+    position:relative;
+    display:table;
+    left:63.3%;
+    top:0px;
+    bottom:50px;
+    margin-left:-340px;
+    font-family:"Microsoft JhengHei";
+}
+/*#main {
+    margin:0 auto;
+    width: 100%;
+    position:relative;
+}*/
+
+html, body {
+                width: auto;
+                height: auto;
+                margin: 0;
+                padding: 0;
+                
+
+            }
+html{
+    overflow-y: scroll;
 }

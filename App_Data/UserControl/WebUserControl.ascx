@@ -1,32 +1,28 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="WebUserControl.ascx.cs" Inherits="WebUserControl" %>
 
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/pepper-grinder/jquery-ui.css"/>
-<!--<link href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/themes/start/jquery-ui.css" rel="stylesheet" type="text/css" />
-<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
-<script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>-->
-
 <script src="./jquery.js"></script>
 <script src="build/jquery.datetimepicker.full.js"></script>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/pepper-grinder/jquery-ui.css"/>
 <link rel="stylesheet" type="text/css" href="./jquery.datetimepicker.css"/>
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/jquery-ui.js" type="text/javascript"></script>
 
-<!--<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-<script src="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/jquery-ui.js" type="text/javascript"></script>-->
 <script>
     
-    $(function () {
+    <%--$(function () {
         $("#<%=datepicker.ClientID%>").datetimepicker({
             format: 'Y-m-d H:00'
         });
-    });
+    });--%>
     
     
-function CheckTopic() {
+<%--function CheckTopic() {
     if (document.getElementById("txtTopic").value == "") {
         alert('請輸入主題');
         document.getElementById("<%=txtTopic.ClientID%>").focus();
         return false;
     }
-}
+}--%>
+
     $(function () {
         $("[id*=btnShowPopup]").click(function () {
             ShowPopup();
@@ -47,13 +43,7 @@ function CheckTopic() {
     }
  
 </script>
-<div class="css_tr">
-    <div class="css_td"><b>主題：</b><asp:TextBox ID="txtTopic" runat="server"></asp:TextBox></div>   
-    </div>
-<div class="css_tr">
-    <div class="css_td"><b>開課時間：</b><asp:TextBox ID="datepicker" runat="server"></asp:TextBox></div>   
-    </div>
-<hr style="width:490px; float:left;"/><br />
+
 <!--一、【課程內容滿意度】-->
 <div class="css_tr">
     <div class="css_td_topic"><b>一、【課程內容滿意度】</b></div>   
@@ -81,12 +71,12 @@ function CheckTopic() {
         <asp:DropDownList ID="ddl_A4" runat="server"></asp:DropDownList></div>
 </div>
 <div class="css_tr">
-    <div class="css_td_ans" >5、您對於課程有無任何建議或其他意見</div>
+    <div class="css_td" >5、您對於課程有無任何建議或其他意見</div>
 </div>
 <div class="css_tr">
-     <div class="css_td">
-        <asp:TextBox ID="txt_A5" runat="server" TextMode="MultiLine" Width="300px" Height="50px"></asp:TextBox></div>
-    
+    <div class="css_td">
+        <asp:TextBox ID="txt_A5" runat="server" TextMode="MultiLine" Width="250px" Height="50px"></asp:TextBox>
+    </div>   
 </div>
 <br />
 
@@ -110,6 +100,7 @@ function CheckTopic() {
     <div class="css_td_ans">
         <asp:DropDownList ID="ddl_B3" runat="server"></asp:DropDownList></div>
 </div>
+
 <div class="css_tr">
     <div class="css_td">4、課程內容符合期待</div>
     <div class="css_td_ans">
@@ -159,17 +150,7 @@ function CheckTopic() {
 </div>
 <div class="css_tr">
      <div class="css_td" style="display:table-row-group;">
-        <%-- <asp:CheckBoxList ID="CheckBoxList1" runat="server" RepeatColumns="2" RepeatDirection="Horizontal" CellPadding="5" CellSpacing="0">
-             <asp:ListItem Value="1">文大Fun心學FB官方粉絲團</asp:ListItem>
-             <asp:ListItem Value="2">文大Fun心學Line官方帳號</asp:ListItem>
-             <asp:ListItem Value="3">校園活動報名系統</asp:ListItem>
-             <asp:ListItem Value="4">學校公告</asp:ListItem>
-             <asp:ListItem Value="5">E-mail</asp:ListItem>
-             <asp:ListItem Value="6">朋友介紹</asp:ListItem>
-             <asp:ListItem Value="7">華夏報導</asp:ListItem>         
-             <asp:ListItem Value="8">其他</asp:ListItem>  
-             <asp:ListItem Value="9">校園張貼海報</asp:ListItem>             
-         </asp:CheckBoxList>--%>
+       
          <asp:Panel ID="chk_Panel" runat="server" HorizontalAlign="Left">
              <asp:CheckBox ID="CheckBox1" runat="server" Text="文大Fun心學FB官方粉絲團" Value="1"/>
              <asp:CheckBox ID="CheckBox2" runat="server" Text="文大Fun心學Line官方帳號" value="2"/><br />
@@ -179,11 +160,11 @@ function CheckTopic() {
              <asp:CheckBox ID="CheckBox6" runat="server" Text="朋友介紹" value="6"/>
              <asp:CheckBox ID="CheckBox7" runat="server" Text="華夏報導" value="7"/>
              <asp:CheckBox ID="CheckBox8" runat="server" Text="其他" value="8"/><asp:TextBox ID="txt_Else" runat="server" ></asp:TextBox><br />
-             <asp:CheckBox ID="CheckBox9" runat="server" Text="校園張貼海報" value="9"/>（地點：<asp:TextBox ID="TextBox1" runat="server" ></asp:TextBox>）
+             <asp:CheckBox ID="CheckBox9" runat="server" Text="校園張貼海報" value="9"/>（地點：<asp:TextBox ID="txtPosLocation" runat="server" ></asp:TextBox>）
          </asp:Panel>
      </div>
 </div>
-
+    
 <br />
 
 <div class="css_tr">
@@ -196,13 +177,17 @@ function CheckTopic() {
 
 <div class="css_tr">
     <div class="css_td">
-        <asp:Button ID="btn_Add" runat="server" Text="新增"  OnClick="btn_Add_Click" />
-    <asp:Button ID="btnShowPopup" runat="server" Text="查看資料"  OnClick="btn_Add_Click" /></div>
+       <asp:Button ID="btn_Add" runat="server" Text="新增"  OnClick="btn_Add_Click" />
+    <asp:Button ID="btnShowPopup" runat="server" Text="查看資料"  /></div>
 </div>
 <br />
 
 <div id="dialog" style="display:none;">
     <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="True" OnPageIndexChanging="GridView1_PageIndexChanging" >
-
+        <Columns>
+            <asp:BoundField DataField="CustomerId" HeaderText="Customer Id" ItemStyle-Width="80" />
+            <asp:BoundField DataField="Name" HeaderText="Name" ItemStyle-Width="150" />
+            <asp:BoundField DataField="Country" HeaderText="Country" ItemStyle-Width="150" />
+        </Columns>
     </asp:GridView>
 </div>
