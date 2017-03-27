@@ -108,3 +108,39 @@ html, body {
 html{
     overflow-y: scroll;
 }
+
+ul{
+   list-style-type:none;
+    margin:0;
+    padding:0;
+    overflow: hidden;
+    vertical-align:middle;
+}
+#nav li{
+    float:left;
+    position:relative;
+    background-color:white;
+    
+}
+#nav li a{
+    color:black;
+    padding:4px 12px;
+    display:block;
+    text-align:center;
+    vertical-align:middle;
+    text-decoration:none;
+}
+#nav{
+   text-align:center;
+    float:right;
+    position:absolute;
+    bottom:0px;
+    right:0px;
+    background-color:aliceblue;
+    vertical-align:middle;
+    font-size:15px;
+}
+#nav li a:hover{
+    background-color:#111;
+    color:white;
+}

@@ -1,47 +1,43 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="WebUserControl.ascx.cs" Inherits="WebUserControl" %>
 
-<script src="./jquery.js"></script>
-<script src="build/jquery.datetimepicker.full.js"></script>
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/pepper-grinder/jquery-ui.css"/>
-<link rel="stylesheet" type="text/css" href="./jquery.datetimepicker.css"/>
-<script src="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/jquery-ui.js" type="text/javascript"></script>
+<link rel="stylesheet" href="../../jquery-ui.css">
 
-<script>
-    
-    <%--$(function () {
-        $("#<%=datepicker.ClientID%>").datetimepicker({
-            format: 'Y-m-d H:00'
-        });
-    });--%>
-    
-    
-<%--function CheckTopic() {
-    if (document.getElementById("txtTopic").value == "") {
-        alert('請輸入主題');
-        document.getElementById("<%=txtTopic.ClientID%>").focus();
-        return false;
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<style type="text/css">
+    .ui-button{ 
+        font-size:13px;
+        font-weight:500;
     }
-}--%>
+</style>
+<script>
 
     $(function () {
-        $("[id*=btnShowPopup]").click(function () {
-            ShowPopup();
-            return false;
+        var dialog;
+
+        dialog = $("#dialog").dialog({
+            autoOpen: false,
+            height: 400,
+            width: 350,
+            modal: true,          
+            draggable: false,
+            buttons: {               
+                關閉: function () {
+                    dialog.dialog("close");
+                }
+            }
+            
+        });
+
+
+        $("#<%=btnShowPopup.ClientID%>").button().on("click", function () {
+            dialog.dialog("open");
         });
     });
-    function ShowPopup() {
-        $("#dialog").dialog({
-            title: "GridView",
-            width: 450,
-            buttons: {
-                Ok: function () {
-                    $(this).dialog('close');
-                }
-            },
-            modal: true
-        });
-    }
- 
+
+
+
 </script>
 
 <!--一、【課程內容滿意度】-->
@@ -177,17 +173,17 @@
 
 <div class="css_tr">
     <div class="css_td">
-       <asp:Button ID="btn_Add" runat="server" Text="新增"  OnClick="btn_Add_Click" />
-    <asp:Button ID="btnShowPopup" runat="server" Text="查看資料"  /></div>
+       <asp:Button class="ui-button ui-corner-all ui-widget" ID="btn_Add" runat="server" Text="新增"  OnClick="btn_Add_Click" />
+    <asp:Button ID="btnShowPopup" runat="server" Text="查看資料"  OnClientClick="return false" /></div>
 </div>
 <br />
 
-<div id="dialog" style="display:none;">
-    <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="True" OnPageIndexChanging="GridView1_PageIndexChanging" >
+<div id="dialog">
+    <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="false" 
+        PageSize="2" AllowPaging="true">
         <Columns>
             <asp:BoundField DataField="CustomerId" HeaderText="Customer Id" ItemStyle-Width="80" />
             <asp:BoundField DataField="Name" HeaderText="Name" ItemStyle-Width="150" />
-            <asp:BoundField DataField="Country" HeaderText="Country" ItemStyle-Width="150" />
         </Columns>
     </asp:GridView>
 </div>

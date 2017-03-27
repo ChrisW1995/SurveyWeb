@@ -14,10 +14,17 @@ public partial class WebUserControl : System.Web.UI.UserControl
     string GroupID;
     protected void Page_Load(object sender, EventArgs e)
     {
-        
-            
-       
-        if(!IsPostBack)
+
+        DataTable _dt = new DataTable();
+        _dt.Columns.AddRange(new DataColumn[] {
+            new DataColumn ("CustomerId"),
+            new DataColumn ("Name")
+        });
+        _dt.Rows.Add("11","aaa");
+        GridView1.DataSource = _dt;
+        GridView1.DataBind();
+
+        if (!IsPostBack)
         {
             //GenerateChkValue();
             dt = new DataTable();

@@ -4,7 +4,7 @@
 
 <html>
 <head runat="server">
-    <link rel="stylesheet" runat="server" type="text/css" href="~/Css/Main.css"/>
+    <link rel="stylesheet" runat="server" type="text/css" href="~/Css/main.css"/>
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>問卷統計</title>
@@ -15,7 +15,15 @@
             <div id="header">
                 <header>
                     <img src="Img/CCUlogo.png" /></header>
+                <div id="nav">
+                    <ul>
+                        <li><a href="Default.aspx">列表</a></li>
+                        <li><a href="AddTopic.aspx">新增主題</a></li>
+                        <li><a href="AddPage.aspx">新增問卷</a></li>
+                    </ul>
+                </div>
             </div>
+
             <div id="div_body">
                 <div class="css_table">
                     <form id="form1" runat="server">
