@@ -3,6 +3,7 @@
 <link rel="stylesheet" href="../../jquery-ui.css">
 
   <link rel="stylesheet" href="/resources/demos/style.css">
+<link rel="stylesheet" href="../../Css/GridviewCss.css" />
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <style type="text/css">
@@ -11,41 +12,49 @@
         font-weight:500;
     }
 </style>
-<script>
-
+<script>  
+    
     $(function () {
-        var dialog;
-
-        dialog = $("#dialog").dialog({
-            autoOpen: false,
-            height: 400,
-            width: 350,
-            modal: true,          
-            draggable: false,
-            buttons: {               
-                關閉: function () {
-                    dialog.dialog("close");
-                }
-            }
-            
-        });
-
-
-        $("#<%=btnShowPopup.ClientID%>").button().on("click", function () {
-            dialog.dialog("open");
+       $("#<%=btnShowPopup.ClientID%>").click(function () {
+           showPopup();
+            return false;
         });
     });
 
-
+    function showPopup() {
+        var dialog;
+        dialog = $("#dialog").dialog({
+            height: 500,
+            width: 1000,
+            modal: true,
+            draggable: false,
+            buttons: {
+                關閉: function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
+    }
 
 </script>
 
+<div class="css_tr">
+    <div class="css_td_topic">
+        <b>主題：</b>
+        <asp:Label ID="lbTopic" runat="server" Text=""></asp:Label>
+    </div>
+
+    
+</div>
+
 <!--一、【課程內容滿意度】-->
 <div class="css_tr">
-    <div class="css_td_topic"><b>一、【課程內容滿意度】</b></div>   
-    <div class="css_td_topic" style="font-size:15px;">
-         全部修改 <asp:DropDownList ID="ddl_All" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddl_All_SelectedIndexChanged"></asp:DropDownList></div>
+    <div class="css_td_topic"><b>一、【課程內容滿意度】</b></div>
+    <div class="css_td_topic" style="font-size: 15px;">
+        全部修改
+        <asp:DropDownList ID="ddl_All" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddl_All_SelectedIndexChanged"></asp:DropDownList>
     </div>
+</div>
 <div class="css_tr">
     <div class="css_td">1、課程內容之吸引人程度</div>
     <div class="css_td_ans">
@@ -155,8 +164,8 @@
              <asp:CheckBox ID="CheckBox5" runat="server" Text="E-mail" value="5"/><br />
              <asp:CheckBox ID="CheckBox6" runat="server" Text="朋友介紹" value="6"/>
              <asp:CheckBox ID="CheckBox7" runat="server" Text="華夏報導" value="7"/>
-             <asp:CheckBox ID="CheckBox8" runat="server" Text="其他" value="8"/><asp:TextBox ID="txt_Else" runat="server" ></asp:TextBox><br />
-             <asp:CheckBox ID="CheckBox9" runat="server" Text="校園張貼海報" value="9"/>（地點：<asp:TextBox ID="txtPosLocation" runat="server" ></asp:TextBox>）
+             <asp:CheckBox ID="CheckBox8" runat="server" Text="其他" AutoPostBack="true" value="8" OnCheckedChanged="CheckBox8_CheckedChanged"/><asp:TextBox Enabled="false" ID="txt_Else" runat="server" ></asp:TextBox><br />
+             <asp:CheckBox ID="CheckBox9" runat="server" Text="校園張貼海報" AutoPostBack="true" value="9" OnCheckedChanged="CheckBox9_CheckedChanged"/>（地點：<asp:TextBox Enabled="false" ID="txtPosLocation" runat="server" ></asp:TextBox>）
          </asp:Panel>
      </div>
 </div>
@@ -174,16 +183,192 @@
 <div class="css_tr">
     <div class="css_td">
        <asp:Button class="ui-button ui-corner-all ui-widget" ID="btn_Add" runat="server" Text="新增"  OnClick="btn_Add_Click" />
-    <asp:Button ID="btnShowPopup" runat="server" Text="查看資料"  OnClientClick="return false" /></div>
+    <asp:Button ID="btnShowPopup" runat="server" Text="查看資料" class="ui-button ui-corner-all ui-widget"  OnClick="btnShowPopup_Click" />
+        <asp:Label ID="Label1" runat="server" Text=""></asp:Label>
+    </div>
 </div>
 <br />
 
-<div id="dialog">
-    <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="false" 
-        PageSize="2" AllowPaging="true">
+<div id="dialog" title="查看資料" style="display:none;">
+    <asp:GridView  ClientIDMode="Static" ID="GridView1" CssClass="mydatagrid" runat="server" AutoGenerateColumns="False" AllowPaging="True" OnPageIndexChanging="GridView1_PageIndexChanging1" OnDataBound="GridView1_DataBound" HeaderStyle-CssClass="header" RowStyle-CssClass="rows" PageSize="8" OnRowDeleting="GridView1_RowDeleting">
         <Columns>
-            <asp:BoundField DataField="CustomerId" HeaderText="Customer Id" ItemStyle-Width="80" />
-            <asp:BoundField DataField="Name" HeaderText="Name" ItemStyle-Width="150" />
+            <asp:TemplateField HeaderText="ID">
+                <EditItemTemplate>
+                    <asp:TextBox ID="txtID" Text="" runat="server"></asp:TextBox>
+                </EditItemTemplate>
+                <ItemTemplate>
+                    <asp:Label ID="lbID" runat="server" Text='<%# Eval("ID") %>'></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>
+            <asp:TemplateField HeaderText="主題ID">
+                <EditItemTemplate>
+                    <asp:TextBox ID="txtTopicID" runat="server"></asp:TextBox>
+                </EditItemTemplate>
+                <ItemTemplate>
+                    <asp:Label ID="lbTopicID" Text='<%# Eval("TopicID") %>' runat="server"></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>
+            <asp:TemplateField HeaderText="A_1">
+                <EditItemTemplate>
+                    <asp:TextBox ID="TextBox3" runat="server"></asp:TextBox>
+                </EditItemTemplate>
+                <ItemTemplate>
+                    <asp:Label ID="lbA1" Text='<%# Eval("A_1") %>' runat="server"></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>
+            <asp:TemplateField HeaderText="A_2">
+                <EditItemTemplate>
+                    <asp:TextBox ID="TextBox4" runat="server"></asp:TextBox>
+                </EditItemTemplate>
+                <ItemTemplate>
+                    <asp:Label ID="lbA2" Text='<%# Eval("A_2") %>' runat="server"></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>
+            <asp:TemplateField HeaderText="A_3">
+                <EditItemTemplate>
+                    <asp:TextBox ID="TextBox5" runat="server"></asp:TextBox>
+                </EditItemTemplate>
+                <ItemTemplate>
+                    <asp:Label ID="lbA3" Text='<%# Eval("A_3") %>' runat="server"></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>
+            <asp:TemplateField HeaderText="A_4">
+                <EditItemTemplate>
+                    <asp:TextBox ID="TextBox6" runat="server"></asp:TextBox>
+                </EditItemTemplate>
+                <ItemTemplate>
+                    <asp:Label ID="lbA4" Text='<%# Eval("A_4") %>' runat="server"></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>
+            <asp:TemplateField HeaderText="A_5">
+                <EditItemTemplate>
+                    <asp:TextBox ID="TextBox7" runat="server"></asp:TextBox>
+                </EditItemTemplate>
+                <ItemTemplate>
+                    <asp:Label ID="lbA5" Text='<%# Eval("A_5") %>' runat="server"></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>
+            <asp:TemplateField HeaderText="B_1">
+                <EditItemTemplate>
+                    <asp:TextBox ID="TextBox8" runat="server"></asp:TextBox>
+                </EditItemTemplate>
+                <ItemTemplate>
+                    <asp:Label ID="lbB1" Text='<%# Eval("B_1") %>' runat="server"></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>
+            <asp:TemplateField HeaderText="B_2">
+                <EditItemTemplate>
+                    <asp:TextBox ID="TextBox9" runat="server"></asp:TextBox>
+                </EditItemTemplate>
+                <ItemTemplate>
+                    <asp:Label ID="lbB2" Text='<%# Eval("B_2") %>' runat="server"></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>
+            <asp:TemplateField HeaderText="B_3">
+                <EditItemTemplate>
+                    <asp:TextBox ID="TextBox10" runat="server"></asp:TextBox>
+                </EditItemTemplate>
+                <ItemTemplate>
+                    <asp:Label ID="lbB3" Text='<%# Eval("B_3") %>' runat="server"></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>
+            <asp:TemplateField HeaderText="B_4">
+                <EditItemTemplate>
+                    <asp:TextBox ID="TextBox11" runat="server"></asp:TextBox>
+                </EditItemTemplate>
+                <ItemTemplate>
+                    <asp:Label ID="lbB4" Text='<%# Eval("B_4") %>' runat="server"></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>
+            <asp:TemplateField HeaderText="B_5">
+                <EditItemTemplate>
+                    <asp:TextBox ID="TextBox12" runat="server"></asp:TextBox>
+                </EditItemTemplate>
+                <ItemTemplate>
+                    <asp:Label ID="lbB5" Text='<%# Eval("B_5") %>' runat="server"></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>
+            <asp:TemplateField HeaderText="B_6">
+                <EditItemTemplate>
+                    <asp:TextBox ID="TextBox13" runat="server"></asp:TextBox>
+                </EditItemTemplate>
+                <ItemTemplate>
+                    <asp:Label ID="lbB6" Text='<%# Eval("B_6") %>' runat="server"></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>
+            <asp:TemplateField HeaderText="C_1">
+                <EditItemTemplate>
+                    <asp:TextBox ID="TextBox14" runat="server"></asp:TextBox>
+                </EditItemTemplate>
+                <ItemTemplate>
+                    <asp:Label ID="lbC1" Text='<%# Eval("C_1") %>' runat="server"></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>
+            <asp:TemplateField HeaderText="C_2">
+                <EditItemTemplate>
+                    <asp:TextBox ID="TextBox15" runat="server"></asp:TextBox>
+                </EditItemTemplate>
+                <ItemTemplate>
+                    <asp:Label ID="lbC2" Text='<%# Eval("C_2") %>' runat="server"></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>
+            <asp:TemplateField HeaderText="C_3">
+                <EditItemTemplate>
+                    <asp:TextBox ID="TextBox16" runat="server"></asp:TextBox>
+                </EditItemTemplate>
+                <ItemTemplate>
+                    <asp:Label ID="lbC3" Text='<%# Eval("C_3") %>' runat="server"></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>
+            <asp:TemplateField HeaderText="如何得知">
+                <EditItemTemplate>
+                    <asp:TextBox ID="TextBox17" runat="server"></asp:TextBox>
+                </EditItemTemplate>
+                <ItemTemplate>
+                    <asp:Label ID="lbD_1_TypeID" Text='<%# Eval("D_1_TypeID") %>' runat="server"></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>
+            <asp:TemplateField HeaderText="其他意見">
+                <EditItemTemplate>
+                    <asp:TextBox ID="TextBox18" runat="server"></asp:TextBox>
+                </EditItemTemplate>
+                <ItemTemplate>
+                    <asp:Label ID="D_2" Text='<%# Eval("D_2") %>' runat="server"></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>
+            <asp:TemplateField HeaderText="海報地點">
+                <EditItemTemplate>
+                    <asp:TextBox ID="TextBox19" runat="server"></asp:TextBox>
+                </EditItemTemplate>
+                <ItemTemplate>
+                    <asp:Label ID="lbPosterLocation" Text='<%# Eval("PosterLocation") %>' runat="server"></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>
+            <asp:TemplateField HeaderText="其他">
+                <EditItemTemplate>
+                    <asp:TextBox ID="TextBox20" runat="server"></asp:TextBox>
+                </EditItemTemplate>
+                <ItemTemplate>
+                    <asp:Label ID="lbD1_Else" Text='<%# Eval("D1_Else") %>' runat="server"></asp:Label>
+                </ItemTemplate>
+                <ControlStyle Width="70px" />
+            </asp:TemplateField>
+            
+            <asp:TemplateField ShowHeader="False">
+                <ItemTemplate>
+                    <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" CommandName="Delete" Text="刪除"></asp:LinkButton>
+                </ItemTemplate>
+                <ControlStyle ForeColor="Black" Width="40px" />
+            </asp:TemplateField>
+            
         </Columns>
+       
+<HeaderStyle CssClass="header"></HeaderStyle>
+
+        <PagerStyle CssClass="pager" />
+
+<RowStyle CssClass="rows"></RowStyle>
+       
     </asp:GridView>
+    <hr style="height:0.5px; background-color:rgba(66, 65, 65, 0.67); display:block; margin-top:20px;""/>
 </div>

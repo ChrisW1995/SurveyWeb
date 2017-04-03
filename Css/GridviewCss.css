@@ -46,12 +46,12 @@
 	padding: 5px 5px 5px 5px;
 	color: #fff;
 	text-decoration: none;
-	font-weight: bold;
+	
 }
 
 .mydatagrid a:hover /** FOR THE PAGING ICONS  HOVER STYLES**/
 {
-	background-color: #000;
+	background-color:darkgrey;
 	color: #fff;
 }
 .mydatagrid span /** FOR THE PAGING ICONS CURRENT PAGE INDICATOR **/

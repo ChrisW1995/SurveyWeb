@@ -3,7 +3,7 @@
 
 <script src="./jquery.js"></script>
 <script src="build/jquery.datetimepicker.full.js"></script>
-<link rel="stylesheet" href="../../Css/GridviewCss.css" type="text/css" />
+<link rel="stylesheet" href="../../Css/gridviewCss.css" type="text/css" />
 <link rel="stylesheet" type="text/css" href="./jquery.datetimepicker.css"/>
 <link rel="stylesheet" href="../../jquery-ui.css">
 <script>
@@ -37,12 +37,12 @@ $(function () {
     <br />
     <div class="css_tr">
         <div class="css_td">
-            <asp:GridView ID="datagrid" AutoGenerateColumns="False" CssClass="mydatagrid" RowStyle-CssClass="rows" AllowPaging="True" HeaderStyle-CssClass="header" PagerStyle-CssClass="pager" runat="server" PageSize="8" OnRowDeleting="datagrid_RowDeleting" OnRowCommand="datagrid_RowCommand">
+            <asp:GridView ID="datagrid" AutoGenerateColumns="False" CssClass="mydatagrid" RowStyle-CssClass="rows" AllowPaging="True" HeaderStyle-CssClass="header" PagerStyle-CssClass="pager" runat="server" PageSize="8" OnRowDeleting="datagrid_RowDeleting" OnRowCommand="datagrid_RowCommand" OnPageIndexChanging="datagrid_PageIndexChanging" OnRowCreated="datagrid_RowCreated">
                 <Columns>
                     <asp:TemplateField HeaderText="課程名稱">
                         <ItemTemplate>
-                            <asp:Label ID="Label1" runat="server" Text='<%# Bind("TopicName") %>'></asp:Label>
-                            <asp:HiddenField ID="HiddenField1" runat="server" Value='<%# Bind("TopicID") %>' />
+                            <asp:HyperLink ID="HyperLink1" runat="server" ForeColor="Black" Text='<%# Bind("TopicName") %>' NavigateUrl='<%# string.Format("~/AddPage.aspx?id={0}", Eval("TopicID")) %>'></asp:HyperLink>
+                            <asp:HiddenField ID="hf" runat="server" Value='<%# Bind("TopicID") %>' />
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="開課時間">
