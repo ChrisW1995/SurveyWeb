@@ -184,6 +184,8 @@
     <div class="css_td">
        <asp:Button class="ui-button ui-corner-all ui-widget" ID="btn_Add" runat="server" Text="新增"  OnClick="btn_Add_Click" />
     <asp:Button ID="btnShowPopup" runat="server" Text="查看資料" class="ui-button ui-corner-all ui-widget"  OnClick="btnShowPopup_Click" />
+       <asp:Button ID="btnExcel" runat="server" Text="匯出Excel" class="ui-button ui-corner-all ui-widget" OnClick="btnExcel_Click" />
+
         <asp:Label ID="Label1" runat="server" Text=""></asp:Label>
     </div>
 </div>

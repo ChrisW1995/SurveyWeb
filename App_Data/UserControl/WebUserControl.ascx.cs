@@ -8,6 +8,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
 using System.Collections;
+using System.IO;
 
 public partial class WebUserControl : System.Web.UI.UserControl
 {
@@ -278,5 +279,24 @@ public partial class WebUserControl : System.Web.UI.UserControl
         BindGrid();
         Page.ClientScript.RegisterStartupScript(this.GetType(), "Popup", "ShowPopup();", true);
 
+    }
+
+    protected void btnExcel_Click(object sender, EventArgs e)
+    {
+        Response.Clear();
+        Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+
+        Excel excel = new Excel();
+        MemoryStream MS = excel.export2Excel(int.Parse(Request["id"]));
+        string fileName = lbTopic.Text;
+
+        Response.AddHeader("Content-Disposition", "attachment; filename="+fileName +".xlsx");
+        Response.BinaryWrite(MS.ToArray());
+
+        MS.Close();
+        MS.Dispose();
+
+        Response.Flush();
+        Response.End();
     }
 }

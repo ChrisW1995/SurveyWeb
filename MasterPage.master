@@ -17,7 +17,7 @@
                     <img src="Img/CCUlogo.png" /></header>
                 <div id="nav">
                     <ul>
-                       <%-- <li><a href="Default.aspx">列表</a></li>--%>
+                        <li><a href="Default.aspx">列表</a></li>
                         <li><a href="AddTopic.aspx">新增主題</a></li>
                         <%--<li><a href="AddPage.aspx">新增問卷</a></li>--%>
                     </ul>
