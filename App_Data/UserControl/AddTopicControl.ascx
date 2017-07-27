@@ -27,17 +27,22 @@ $(function () {
     }
 </script>
 
-
-<div class="css_tr">
-    <div class="css_td"><b>主題：</b><asp:TextBox ID="txtTopic" runat="server"></asp:TextBox></div>   
-    </div>
-<div class="css_tr">
-    <div class="css_td"><b>開課時間：</b><asp:TextBox ID="datepicker" runat="server"></asp:TextBox></div>   
-    </div>
+<div class="row form-inline">
+    <div class="col-sm-offset-1 form-group col-md-3">
+    <label for="txtTopic">主題：</label>
+    <asp:TextBox ID="txtTopic" runat="server" class="form-control" Wrap="False"></asp:TextBox>
+  </div>
+  <div class="form-group col-md-4">
+    <label for="datepicker" >開課時間：</label>
+    <asp:TextBox class=" form-control " ID="datepicker" runat="server" ></asp:TextBox>
+  </div>
+     <asp:Button class=" btn btn-primary col-md-1" ID="btnAddTopic" runat="server" Text="新增主題" OnClientClick="if(!checkTopic())return false;" OnClick="btnAddTopic_Click" />
+</div>
+     
     <br />
-    <div class="css_tr">
-        <div class="css_td">
-            <asp:GridView ID="datagrid" AutoGenerateColumns="False" CssClass="mydatagrid" RowStyle-CssClass="rows" AllowPaging="True" HeaderStyle-CssClass="header" PagerStyle-CssClass="pager" runat="server" PageSize="8" OnRowDeleting="datagrid_RowDeleting" OnRowCommand="datagrid_RowCommand" OnPageIndexChanging="datagrid_PageIndexChanging" OnRowCreated="datagrid_RowCreated">
+
+<div class="row">
+     <asp:GridView ID="datagrid" AutoGenerateColumns="False" CssClass="mydatagrid " RowStyle-CssClass="rows" AllowPaging="True" HeaderStyle-CssClass="header" PagerStyle-CssClass="pager" runat="server" PageSize="15" OnRowDeleting="datagrid_RowDeleting" OnRowCommand="datagrid_RowCommand" OnPageIndexChanging="datagrid_PageIndexChanging" OnRowCreated="datagrid_RowCreated">
                 <Columns>
                     <asp:TemplateField HeaderText="課程名稱">
                         <ItemTemplate>
@@ -58,11 +63,8 @@ $(function () {
                 <PagerStyle CssClass="pager" />
                 <RowStyle CssClass="rows" />
             </asp:GridView>
-        </div>
-    </div>
+</div>
+           
 
-<div class="css_tr">
-    <div class="css_td">
-        <asp:Button class="ui-button" ID="btnAddTopic" runat="server" Text="新增主題" OnClientClick="if(!checkTopic())return false;" OnClick="btnAddTopic_Click" /></div>   
-    </div>
-   
+
+     
