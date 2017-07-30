@@ -4,17 +4,14 @@
 
 <html>
 <head runat="server">
-    <link rel="stylesheet" type="text/css" href="Content/bootstrap.css" />
-    <link rel="stylesheet" runat="server" type="text/css" href="~/Css/main.css" />
-    <script type="text/javascript" src="Scripts/jquery-3.1.1.js"></script>
-    <script type="text/javascript" src="Scripts/bootstrap.js"></script>
+    <link rel="stylesheet" runat="server" type="text/css" href="~/Css/main.css"/>
 
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>問卷統計</title>
-
+    
 </head>
-<body>
-    <%-- <div id="container">
+<body>  
+        <div id="container">
             <div id="header">
                 <header>
                     <img src="Img/CCUlogo.png" /></header>
@@ -22,7 +19,7 @@
                     <ul>
                         <li><a href="Default.aspx">列表</a></li>
                         <li><a href="AddTopic.aspx">新增主題</a></li>
-                        <%--<li><a href="AddPage.aspx">新增問卷</a></li>
+                        <%--<li><a href="AddPage.aspx">新增問卷</a></li>--%>
                     </ul>
                 </div>
             </div>
@@ -39,49 +36,6 @@
             <div id="div_footer">
                 123445
             </div>
-        </div>--%>
-    <nav class="navbar navbar-default" role="navigation">
-        <div class="container">
-
-
-
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">
-                    <img src="Img/CCUlogo.png" /></a>
-            </div>
-
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <%-- <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>--%>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="Default.aspx">列表</a></li>
-                    <li><a href="AddTopic.aspx">新增主題</a></li>
-                    <%--<li><a href="AddPage.aspx">新增問卷</a></li>--%>
-                </ul>
-
-            </div>
-            <!-- /.navbar-collapse -->
-
         </div>
-        <!-- /.container-fluid -->
-        </nav>
-        <div class="container">
-                <form id="form1" runat="server" class="">
-                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
-                </asp:ContentPlaceHolder>
-                    </form>
-            </div>
-            
-   
-    
 </body>
 </html>
