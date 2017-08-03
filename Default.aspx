@@ -121,7 +121,7 @@
                 <div class="row" style="float: right;">
                     <div>
                         <asp:Button ID="btnExport" runat="server" Text="勾選匯出" class="btn btn-success" OnClick="btnExport_Click"/>
-                        <asp:Button ID="btnExportAll" runat="server" Text="全部匯出" class="btn btn-primary"/>
+                        <asp:Button ID="btnExportAll" runat="server" Text="全部匯出" class="btn btn-primary" OnClick="btnExportAll_Click"/>
                     </div>
                 </div>
             </div>

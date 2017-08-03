@@ -21,7 +21,7 @@ public class Excel
     //}
     SurveyModel context = new SurveyModel();
 
-    public MemoryStream export2Excel(List<int> _TopicId)
+    public MemoryStream export2Excel(List<string> _TopicIdLst)
     {
 
         //---initail excel
@@ -58,8 +58,7 @@ public class Excel
 
 
         //class content
-        var q_list = context.Content.Where(c => c.TopicID == _TopicId).ToList();
-
+        var q_list = context.Content.Where(q => _TopicIdLst.Contains(q.TopicID.ToString())).ToList();
         DataTable dt = Entities2DataDable(q_list);
 
         #region Set columns on the second row 
@@ -238,7 +237,7 @@ public class Excel
         foreach(PropertyInfo prop in entityProps)
         {
             var type = (prop.PropertyType.IsGenericType && prop.PropertyType.GetGenericTypeDefinition() == typeof(Nullable) ? Nullable.GetUnderlyingType(prop.PropertyType) : prop.PropertyType);
-            dt.Columns.Add(prop.Name, type);
+            dt.Columns.Add(prop.Name);
         }
 
         foreach(Content item in items)
