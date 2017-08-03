@@ -43,9 +43,14 @@ public partial class _Default : System.Web.UI.Page
 
     protected void btnExport_Click(object sender, EventArgs e)
     {
+        List<int> Topic
         foreach(ListViewItem row in lv_TopicLst.Items)
         {
-
+            CheckBox cb = (CheckBox)row.FindControl("chkTopic");
+            if (cb.Checked == true)
+            {
+                Label lbTopicId = (Label)row.FindControl("lbTopicID");
+            }
         }
     }
 }

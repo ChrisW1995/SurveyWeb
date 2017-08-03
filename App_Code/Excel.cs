@@ -20,16 +20,17 @@ public class Excel
 
     //}
     SurveyModel context = new SurveyModel();
-    DataTable dt;
-    public XSSFWorkbook initailExcel()
+
+    public MemoryStream export2Excel(List<int> _TopicId)
     {
+
         //---initail excel
-        XSSFWorkbook _workbook = new XSSFWorkbook();
-        ISheet u_sheet = _workbook.CreateSheet("sheet1");
+        XSSFWorkbook workbook = new XSSFWorkbook();
+        ISheet u_sheet = workbook.CreateSheet("sheet1");
         //---font style and align
-        XSSFCellStyle cs = (XSSFCellStyle)_workbook.CreateCellStyle();
+        XSSFCellStyle cs = (XSSFCellStyle)workbook.CreateCellStyle();
         cs.Alignment = HorizontalAlignment.Center;
-        XSSFFont font = (XSSFFont)_workbook.CreateFont();
+        XSSFFont font = (XSSFFont)workbook.CreateFont();
         font.Boldweight = (short)FontBoldWeight.Bold;
 
         cs.SetFont(font);
@@ -55,7 +56,75 @@ public class Excel
         u_row.GetCell(11).CellStyle = u_row.GetCell(14).CellStyle = cs;
         #endregion
 
-        return _workbook;
+
+        //class content
+        var q_list = context.Content.Where(c => c.TopicID == _TopicId).ToList();
+
+        DataTable dt = Entities2DataDable(q_list);
+
+        #region Set columns on the second row 
+        IRow sec_row = u_sheet.CreateRow(1);
+        for (int i = 2; i < dt.Columns.Count - 4; i++)
+        {
+            sec_row.CreateCell(i - 2).SetCellValue(dt.Columns[i].ColumnName);
+            sec_row.GetCell(i - 2).CellStyle = cs;
+        }
+
+        var choose = from c in context.D1_Choose select c;
+
+        int count = 14;
+        foreach (var c in choose)
+        {
+            sec_row.CreateCell(count).SetCellValue(c.Description);
+            sec_row.GetCell(count).CellStyle = cs;
+            count++;
+        }
+        sec_row.CreateCell(23).SetCellValue(dt.Columns[17].ColumnName);
+        sec_row.GetCell(23).CellStyle = cs;
+        #endregion
+
+        for (int i = 0; i < dt.Rows.Count; i++)
+        {
+            IRow row = u_sheet.CreateRow(i + 2);
+            for (int j = 2; j <= 15; j++)
+            {
+                row.CreateCell(j - 2).SetCellValue(dt.Rows[i][j].ToString());
+
+            }
+
+            if (dt.Rows[i][16].ToString() != "")
+            {
+                string[] locations = (dt.Rows[i][16].ToString()).Split(',');
+
+                foreach (string _location in locations)
+                {
+                    int locationID = int.Parse(_location);
+                    switch (locationID)
+                    {
+                        case 8:
+                            row.CreateCell(13 + locationID).SetCellValue(dt.Rows[i][19].ToString());
+                            break;
+                        case 9:
+                            row.CreateCell(13 + locationID).SetCellValue(dt.Rows[i][18].ToString());
+                            break;
+                        default:
+                            row.CreateCell(13 + locationID).SetCellValue("v");
+                            break;
+                    }
+                }
+
+            }
+
+            row.CreateCell(23).SetCellValue(dt.Rows[i][17].ToString());
+
+        }
+        MemoryStream MS = new MemoryStream();
+        workbook.Write(MS);
+
+        return MS;
+
+
+
     }
     public MemoryStream export2Excel(int _TopicId)
     {
@@ -96,7 +165,7 @@ public class Excel
         //class content
         var q_list = context.Content.Where(c => c.TopicID == _TopicId).ToList();
 
-        dt = Entities2DataDable(q_list);
+        DataTable dt = Entities2DataDable(q_list);
 
 #region Set columns on the second row 
         IRow sec_row = u_sheet.CreateRow(1);
@@ -158,9 +227,7 @@ public class Excel
         workbook.Write(MS);
 
         return MS;
-       
-
-        
+             
     } 
 
     public DataTable Entities2DataDable<Content>(List<Content> items)
