@@ -4,8 +4,10 @@
 
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-
-    <uc1:WebUserControl runat="server" ID="SurveyController" />
+    <div class="container">
+        <uc1:WebUserControl runat="server" ID="SurveyController" />
+    </div>
+    
         
 </asp:Content>
 

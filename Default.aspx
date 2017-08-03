@@ -32,8 +32,6 @@
 
                 <label for="datepicker" class="control-label  col-md-offset-1 col-md-2" style="text-align: right;">起始時間</label>
                 <div class="col-md-2">
-
-
                     <asp:TextBox ID="datepicker" runat="server" class="form-control" Wrap="False"></asp:TextBox>
                 </div>
                 <div class="form-inline">
@@ -83,6 +81,7 @@
                 <LayoutTemplate>
                     <table class="table table-striped">
                         <tr>
+                           
                             <th width="80px;"></th>
                             <th>課程名稱</th>
                             <th>課程時間</th>
@@ -95,6 +94,7 @@
                     <tr runat="server">
                         <td>
                             <asp:CheckBox ID="chkTopic" runat="server" />
+                            <asp:Label ID="lbTopicID" runat="server" Text='<% #Eval("TopicID") %>' Visible="false"></asp:Label>
                         </td>
                         <td>
                             <asp:Label ID="lbTopicName" runat="server" Text='<% #Eval("TopicName") %>'></asp:Label></td>
@@ -104,7 +104,7 @@
                 </ItemTemplate>
             </asp:ListView>
 
-            <div class="container-fluid">
+            <div class="container-fluid" >
                 <div class="row" style="float: right;">
                     <asp:DataPager ID="DataPager1" runat="server" PagedControlID="lv_TopicLst" PageSize="15">
                         <Fields>
@@ -114,6 +114,15 @@
                             <asp:NextPreviousPagerField ButtonType="Link" ShowNextPageButton="true" ShowPreviousPageButton="False" ButtonCssClass="datapagerStyle" />
                         </Fields>
                     </asp:DataPager>
+                </div>
+            </div>
+
+            <div class="container-fluid" style="margin-top:15px;">
+                <div class="row" style="float: right;">
+                    <div>
+                        <asp:Button ID="btnExport" runat="server" Text="勾選匯出" class="btn btn-success" OnClick="btnExport_Click"/>
+                        <asp:Button ID="btnExportAll" runat="server" Text="全部匯出" class="btn btn-primary"/>
+                    </div>
                 </div>
             </div>
         </div>

@@ -20,6 +20,43 @@ public class Excel
 
     //}
     SurveyModel context = new SurveyModel();
+    DataTable dt;
+    public XSSFWorkbook initailExcel()
+    {
+        //---initail excel
+        XSSFWorkbook _workbook = new XSSFWorkbook();
+        ISheet u_sheet = _workbook.CreateSheet("sheet1");
+        //---font style and align
+        XSSFCellStyle cs = (XSSFCellStyle)_workbook.CreateCellStyle();
+        cs.Alignment = HorizontalAlignment.Center;
+        XSSFFont font = (XSSFFont)_workbook.CreateFont();
+        font.Boldweight = (short)FontBoldWeight.Bold;
+
+        cs.SetFont(font);
+
+        for (int i = 14; i <= 22; i++)
+        {
+            u_sheet.SetColumnWidth(i, 2500);
+
+        }
+
+        #region MergeRegion
+        IRow u_row = u_sheet.CreateRow(0);
+        u_row.CreateCell(0).SetCellValue("(一)【課程內容滿意度】");
+        u_row.CreateCell(5).SetCellValue("(二)【講師授課之滿意度】");
+        u_row.CreateCell(11).SetCellValue("(三)【整體教學環境方面】");
+        u_row.CreateCell(14).SetCellValue("(四)【其他】");
+        u_sheet.AddMergedRegion(new CellRangeAddress(0, 0, 0, 4));
+        u_sheet.AddMergedRegion(new CellRangeAddress(0, 0, 5, 10));
+        u_sheet.AddMergedRegion(new CellRangeAddress(0, 0, 11, 13));
+        u_sheet.AddMergedRegion(new CellRangeAddress(0, 0, 14, 23));
+
+        u_row.GetCell(0).CellStyle = u_row.GetCell(5).CellStyle =
+        u_row.GetCell(11).CellStyle = u_row.GetCell(14).CellStyle = cs;
+        #endregion
+
+        return _workbook;
+    }
     public MemoryStream export2Excel(int _TopicId)
     {
         
@@ -59,7 +96,7 @@ public class Excel
         //class content
         var q_list = context.Content.Where(c => c.TopicID == _TopicId).ToList();
 
-        DataTable dt = Entities2DataDable(q_list);
+        dt = Entities2DataDable(q_list);
 
 #region Set columns on the second row 
         IRow sec_row = u_sheet.CreateRow(1);

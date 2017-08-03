@@ -22,6 +22,15 @@ public partial class _Default : System.Web.UI.Page
     protected void GetData()
     {
         var q = db.Topic.ToList();
+        if (!string.IsNullOrEmpty(txtSearchTopic.Text))
+        {
+            q = q.Where(c => c.TopicName.Contains(txtSearchTopic.Text)).ToList();
+        }
+        if (!string.IsNullOrEmpty(datepicker.Text) && !string.IsNullOrEmpty(datepicker2.Text))
+        {
+            q = q.Where(c => c.TopicTime >= DateTime.Parse(datepicker.Text) && c.TopicTime <= DateTime.Parse(datepicker2.Text)).ToList();
+        }
+        
         lv_TopicLst.DataSource = q;
         lv_TopicLst.DataBind();
     }
@@ -30,5 +39,13 @@ public partial class _Default : System.Web.UI.Page
     {
         this.DataPager1.SetPageProperties(e.StartRowIndex, e.MaximumRows, false);
         GetData();
+    }
+
+    protected void btnExport_Click(object sender, EventArgs e)
+    {
+        foreach(ListViewItem row in lv_TopicLst.Items)
+        {
+
+        }
     }
 }

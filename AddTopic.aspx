@@ -4,6 +4,9 @@
 
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-    <uc1:AddTopicControl runat="server" ID="AddTopicControl" />
+    <div class="container">
+        <uc1:AddTopicControl runat="server" ID="AddTopicControl" />
+    </div>
+    
 </asp:Content>
 
