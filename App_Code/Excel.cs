@@ -58,7 +58,31 @@ public class Excel
 
 
         //class content
-        var q_list = context.Content.Where(q => _TopicIdLst.Contains(q.TopicID.ToString())).ToList();
+        var q_list = context.Content.Where(q => _TopicIdLst.Contains(q.TopicID.ToString())).Join(context.Topic, q => q.TopicID, q2 => q2.TopicID, (q, q2) => new { q, q2 })
+        .Select(m => new
+        {
+            ID = m.q.ID,
+            TopicID = m.q.TopicID,
+            A_1 = m.q.A_1,
+            A_2 = m.q.A_2,
+            A_3 = m.q.A_3,
+            A_4 = m.q.A_4,
+            A_5 = m.q.A_5,
+            B_1 = m.q.B_1,
+            B_2 = m.q.B_2,
+            B_3 = m.q.B_3,
+            B_4 = m.q.B_4,
+            B_5 = m.q.B_5,
+            B_6 = m.q.B_6,
+            C_1 = m.q.C_1,
+            C_2 = m.q.C_2,
+            C_3 = m.q.C_3,            
+            D_1_TypeID = m.q.D_1_TypeID,
+            D_2 = m.q.D_2,
+            PosterLocation = m.q.PosterLocation,
+            D1_Else = m.q.D1_Else,
+            TopicName = m.q2.TopicName
+        }).ToList();
         DataTable dt = Entities2DataDable(q_list);
 
         #region Set columns on the second row 
@@ -80,6 +104,8 @@ public class Excel
         }
         sec_row.CreateCell(23).SetCellValue(dt.Columns[17].ColumnName);
         sec_row.GetCell(23).CellStyle = cs;
+        sec_row.CreateCell(24).SetCellValue(dt.Columns[20].ColumnName);
+        sec_row.GetCell(24).CellStyle = cs;
         #endregion
 
         for (int i = 0; i < dt.Rows.Count; i++)
@@ -115,7 +141,7 @@ public class Excel
             }
 
             row.CreateCell(23).SetCellValue(dt.Rows[i][17].ToString());
-
+            row.CreateCell(24).SetCellValue(dt.Rows[i][20].ToString());
         }
         MemoryStream MS = new MemoryStream();
         workbook.Write(MS);

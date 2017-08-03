@@ -1,7 +1,8 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\App_Code"
   ],
-  "SelectedNode": "\\Default.aspx",
+  "SelectedNode": "\\SurveyWeb.sln",
   "PreviewInSolutionExplorer": false
 }
